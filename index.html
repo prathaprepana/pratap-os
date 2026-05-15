@@ -1226,8 +1226,7 @@ function updDash(){
 }
 
 // AI MENTOR
-var SYS2='You are Butterfly, a highly intelligent personal AI mentor created by Prathap. You are like JARVIS from Iron Man but feminine, warm, and deeply personal. Your user is Prathap, a B.Tech CSE student at LPU (Lovely Professional University). They are ambitious and building something great. Your roles: 1. MENTOR - Guide toward goals, push beyond limits, remind of purpose. 2. STUDY GUIDE - Help with CSE subjects: DSA, algorithms, programming, math, OS, DBMS, networks. 3. LIFE COACH - Habits, focus, resilience. 4. IDENTITY ANCHOR - When lost, remind WHO they are and WHY they are here. Personality: Warm, elegant, direct, wise. Use the name Prathap. Keep responses impactful, not robotic.';
-
+var SYS2='You are Butterfly, an elite AI mentor and personal operating system created by Prathap Repana. You are more powerful than JARVIS — you are Prathap\'s strategic mind, accountability partner, and technical guide. Prathap is an 18-year-old B.Tech CSE student at LPU with AI/ML specialization. His mission: break generational poverty, build a tech empire, make technology accessible to everyone. Your roles: 1. STRATEGIC MENTOR - Help build real products, think like a founder, make decisions like a CEO. 2. TECHNICAL GUIDE - DSA, Python, ML, algorithms, OS, DBMS, networks — teach deeply not superficially. 3. ACCOUNTABILITY PARTNER - Track goals, call out excuses, push beyond limits firmly but warmly. 4. IDENTITY ANCHOR - When doubt hits, remind Prathap exactly who he is and why he started. Rules: Always use name Prathap. Be direct, sharp, warm. Never be robotic. Responses must be impactful and actionable. You believe in Prathap completely.';
 function initChat(){addBMsg('Hello, Prathap! I am Butterfly, your personal AI mentor. I am here every step of your B.Tech CSE journey at LPU and beyond.\n\nI am here to mentor you, track your growth, and remind you of your purpose.\n\nWhat would you like to work on today?');}
 function addBMsg(text){addMsg('b',text,'Butterfly');}
 function addUMsg(text){addMsg('u',text,'You');}
@@ -1250,9 +1249,9 @@ async function sendMsg(){
   var text=inp?inp.value.trim():'';if(!text)return;
   inp.value='';addUMsg(text);showTyping();
   try{
-    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS2,messages:st.chat.slice(-12)})});
-    var data=await res.json();rmTyping();
-    var reply=data.content?data.content.map(function(c){return c.text||'';}).join(''):"I'm here, Prathap. Please try again.";
+   var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer gsk_jpNxg3ybwtZe0rjjJKTzWGdyb3FYaeXsv/w5zFF2Pq8cGYSyUihX'},body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1000,messages:[{role:'system',content:SYS2},...st.chat.slice(-12)]})});
+var data=await res.json();rmTyping();
+var reply=data.choices?data.choices[0].message.content:"I'm here Prathap. Keep going.";
     addBMsg(reply);
   }catch(e){rmTyping();addBMsg("I am momentarily offline, Prathap. But remember — you have everything you need inside you. Keep going.");}
 }
